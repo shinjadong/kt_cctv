@@ -1,0 +1,38 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* 웹 접근성 개선 - 키보드 네비게이션을 위한 포커스 스타일 */
+@layer base {
+  * {
+    @apply focus:outline-none focus:ring-2 focus:ring-security-blue focus:ring-offset-2;
+  }
+  
+  html {
+    /* 부드러운 스크롤 - 사용자 경험 개선 */
+    scroll-behavior: smooth;
+  }
+  
+  body {
+    /* 모바일에서 가로 스크롤 방지 */
+    overflow-x: hidden;
+  }
+}
+
+/* 커스텀 유틸리티 클래스들 */
+@layer utilities {
+  /* 텍스트 그라데이션 효과 */
+  .text-gradient {
+    @apply bg-gradient-to-r from-security-blue to-trust-green bg-clip-text text-transparent;
+  }
+  
+  /* 그림자 효과 - 카드형 컴포넌트용 */
+  .card-shadow {
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  }
+  
+  /* 호버 효과 */
+  .hover-lift {
+    @apply transition-transform duration-200 hover:scale-105;
+  }
+} 

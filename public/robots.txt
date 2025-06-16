@@ -1,0 +1,13 @@
+User-agent: *
+Allow: /
+
+# 사이트맵 위치
+Sitemap: https://your-domain.com/sitemap.xml
+Sitemap: https://your-domain.com/sitemap-0.xml
+
+# 크롤링 제외할 디렉토리 (있다면)
+# Disallow: /admin/
+# Disallow: /private/
+
+# 크롤링 속도 조절 (1초 대기)
+Crawl-delay: 1 
