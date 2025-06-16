@@ -14,6 +14,7 @@ const playfair = Playfair_Display({
 // SEO 메타데이터 - 이것이 바로 "테서랙트"의 핵심!
 // 구글 검색엔진이 우리 사이트를 이해하는 "번역기" 역할
 export const metadata: Metadata = {
+  metadataBase: new URL('https://kt-cctv-main.vercel.app'),
   title: {
     default: 'CCTV 설치 전문업체 | 믿을 수 있는 보안카메라 설치',
     template: '%s | CCTV 전문업체'

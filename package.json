@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "critters": "^0.0.23",
     "next": "^14.0.0",
     "react": "^18.0.0",
     "react-dom": "^18.0.0"
@@ -24,7 +25,13 @@
     "tailwindcss": "^3.0.0",
     "typescript": "^5.0.0"
   },
-  "keywords": ["CCTV", "설치", "보안", "카메라", "SEO"],
+  "keywords": [
+    "CCTV",
+    "설치",
+    "보안",
+    "카메라",
+    "SEO"
+  ],
   "author": "",
   "license": "ISC",
   "description": "CCTV 설치 전문 업체 - 구글 SEO 최적화 웹사이트"

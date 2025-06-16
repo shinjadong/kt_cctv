@@ -1,15 +1,15 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  // SEO 최적화: 정적 사이트 생성 활성화 (검색엔진이 더 쉽게 크롤링)
-  output: 'export',
+  // SEO 최적화: Vercel 배포 최적화 설정
   trailingSlash: true,
   images: {
-    unoptimized: true
+    domains: ['fonts.gstatic.com', 'fonts.googleapis.com'],
+    formats: ['image/webp', 'image/avif']
   },
   
-  // 성능 최적화: 번들 사이즈 분석 및 최적화
+  // 성능 최적화: CSS 및 폰트 최적화 비활성화 (Vercel 호환성)
   experimental: {
-    optimizeCss: true
+    // optimizeCss: true 주석 처리 (Vercel 배포 이슈)
   },
   
   // 보안 헤더 설정 (구글이 선호하는 HTTPS 보안)
