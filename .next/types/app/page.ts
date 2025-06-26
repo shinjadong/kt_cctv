@@ -1,4 +1,4 @@
-// File: C:\PROJECTS\PROJECTS_진행중\CCTV-googleSEO\src\app\page.tsx
+// File: /home/tlswk/projects/cctv/KT-CCTV-main/src/app/page.tsx
 import * as entry from '../../../src/app/page.js'
 import type { ResolvingMetadata, ResolvingViewport } from 'next/dist/lib/metadata/types/metadata-interface.js'
 

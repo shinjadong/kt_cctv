@@ -1,22 +1,52 @@
 'use client'
 
 import Image from 'next/image'
+import { useState, useRef, useEffect } from 'react'
+import { imageConfig } from '@/lib/images'
 
 export default function KTBrand() {
+  const [inView, setInView] = useState(false)
+  const sectionRef = useRef<HTMLElement>(null)
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setInView(true)
+          observer.disconnect()
+        }
+      },
+      { threshold: 0.1 }
+    )
+
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current)
+    }
+
+    return () => observer.disconnect()
+  }, [])
+
   return (
-    <section className="relative h-screen flex items-center justify-center overflow-hidden">
+    <section ref={sectionRef} className="relative h-screen flex items-center justify-center overflow-hidden">
       
       {/* 실제 서울 야경 배경 이미지 */}
       <div className="absolute inset-0 -z-10">
-        <Image
-          src="/images/seoul-night.jpg"
-          alt="서울 야경"
-          fill
-          style={{ objectFit: 'cover' }}
-          priority
-          quality={100}
-          className="filter brightness-75"
-        />
+        {inView && (
+          <Image
+            src={imageConfig.seoulNight.src}
+            alt="서울 야경"
+            fill
+            style={{ objectFit: 'cover' }}
+            loading="lazy"
+            quality={85}
+            className="filter brightness-75"
+            placeholder="blur"
+            blurDataURL="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgdmlld0JveD0iMCAwIDEwMCAxMDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHJlY3Qgd2lkdGg9IjEwMCIgaGVpZ2h0PSIxMDAiIGZpbGw9IiMyMzFmMjQiLz48L3N2Zz4K"
+          />
+        )}
+        {!inView && (
+          <div className="w-full h-full bg-gray-900" />
+        )}
       </div>
       
       {/* 오버레이 - 배경을 적절히 어둡게 하여 로고와 텍스트가 잘 보이도록 */}
@@ -31,11 +61,18 @@ export default function KTBrand() {
         {/* KT 텔레캅 로고 컨테이너 */}
         <div className="mb-8">
           {/* 실제 KT 텔레캅 로고 이미지 - 사이즈 축소 */}
-          <img 
-            src="/images/logos/kt-telecop_CI_logo.png" 
-            alt="KT 텔레캅 로고" 
-            className="h-20 lg:h-24 mx-auto drop-shadow-2xl filter brightness-110"
-          />
+          {inView && (
+            <Image 
+              src={imageConfig.logo.src}
+              alt="KT 텔레캅 로고" 
+              width={96}
+              height={96}
+              className="h-20 lg:h-24 mx-auto drop-shadow-2xl filter brightness-110"
+              loading="lazy"
+              placeholder="blur"
+              blurDataURL="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iOTYiIGhlaWdodD0iOTYiIHZpZXdCb3g9IjAgMCA5NiA5NiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iOTYiIGhlaWdodD0iOTYiIGZpbGw9IiNmNWY1ZjQiLz48L3N2Zz4K"
+            />
+          )}
         </div>
         
         {/* 서브 텍스트 */}

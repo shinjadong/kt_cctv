@@ -1,9 +1,19 @@
 import type { Metadata } from 'next'
+import dynamic from 'next/dynamic'
 import Header from '@/components/Header'
 import Hero from '@/components/Hero'
-import KTBrand from '@/components/KTBrand'
-import VideoDemo from '@/components/VideoDemo'
-import RecommendedCustomers from '@/components/RecommendedCustomers'
+
+const KTBrand = dynamic(() => import('@/components/KTBrand'), {
+  loading: () => <div className="min-h-screen bg-gradient-to-br from-amber-50 to-stone-100" />
+})
+
+const VideoDemo = dynamic(() => import('@/components/VideoDemo'), {
+  loading: () => <div className="min-h-96 bg-gradient-to-br from-stone-100 to-amber-50" />
+})
+
+const RecommendedCustomers = dynamic(() => import('@/components/RecommendedCustomers'), {
+  loading: () => <div className="min-h-96 bg-white" />
+})
 
 // 메인 페이지 SEO 메타데이터
 export const metadata: Metadata = {
@@ -31,21 +41,14 @@ export const metadata: Metadata = {
 export default function HomePage() {
   return (
     <main className="min-h-screen">
-      {/* 상단 헤더 - KT 텔레캅 로고와 연락처 */}
+      {/* Critical Above the Fold Content */}
       <Header />
-      
-      {/* 메인 히어로 섹션 - 첫인상이 가장 중요! */}
       <Hero />
       
-      {/* KT 브랜드 섹션 - 서울 야경 배경의 미니 페이지 */}
+      {/* Lazy Loaded Below the Fold Content */}
       <KTBrand />
-      
-      {/* 영상 데모 섹션 - 실제 설치 과정 시연 */}
       <VideoDemo />
-      
-      {/* 추천 고객 섹션 - 맞춤형 솔루션 제안 */}
       <RecommendedCustomers />
-      
     </main>
   )
 } 

@@ -1,6 +1,8 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useRef, useEffect } from 'react'
+import Image from 'next/image'
+import { imageConfig } from '@/lib/images'
 
 export default function VideoDemo() {
   const [imageLoaded, setImageLoaded] = useState({
@@ -9,6 +11,27 @@ export default function VideoDemo() {
     video3: false,
     video4: false
   })
+  
+  const [inView, setInView] = useState(false)
+  const sectionRef = useRef<HTMLElement>(null)
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setInView(true)
+          observer.disconnect()
+        }
+      },
+      { threshold: 0.1 }
+    )
+
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current)
+    }
+
+    return () => observer.disconnect()
+  }, [])
 
   const handleImageLoad = (videoKey: string) => {
     setImageLoaded(prev => ({ ...prev, [videoKey]: true }))
@@ -19,7 +42,7 @@ export default function VideoDemo() {
   }
 
   return (
-    <section className="relative bg-gradient-to-br from-stone-100 to-amber-50 py-16 lg:py-24 overflow-hidden">
+    <section ref={sectionRef} className="relative bg-gradient-to-br from-stone-100 to-amber-50 py-16 lg:py-24 overflow-hidden">
       {/* 배경 패턴 */}
       <div className="absolute inset-0 bg-gradient-to-br from-amber-50/80 via-stone-100/70 to-amber-100/90"></div>
       
@@ -37,11 +60,18 @@ export default function VideoDemo() {
             
             {/* KT 텔레캅 로고 */}
             <div className="flex justify-center mb-6">
-              <img 
-                src="/images/logos/kt-telecop_CI_logo.png" 
-                alt="KT 텔레캅" 
-                className="h-12 lg:h-16 drop-shadow-lg"
-              />
+              {inView && (
+                <Image 
+                  src={imageConfig.logo.src}
+                  alt="KT 텔레캅" 
+                  width={64}
+                  height={64}
+                  className="h-12 lg:h-16 drop-shadow-lg"
+                  loading="lazy"
+                  placeholder="blur"
+                  blurDataURL="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIHZpZXdCb3g9IjAgMCA2NCA2NCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIGZpbGw9IiNmNWY1ZjQiLz48L3N2Zz4K"
+                />
+              )}
             </div>
           </div>
           
@@ -51,13 +81,18 @@ export default function VideoDemo() {
             {/* 1. 500만화소 - 고화질 영상 */}
             <div className="bg-white/80 backdrop-blur-sm rounded-xl p-4 shadow-2xl border border-amber-200/50 hover:shadow-3xl transition-all duration-300">
               <div className="aspect-video bg-gray-100 rounded-lg mb-3 overflow-hidden relative">
-                <img 
-                  src="/images/video_1.gif" 
-                  alt="500만화소 고화질 CCTV 영상" 
-                  className={`w-full h-full object-cover transition-opacity duration-300 ${imageLoaded.video1 ? 'opacity-100' : 'opacity-0'}`}
-                  onLoad={() => handleImageLoad('video1')}
-                  onError={() => handleImageError('video1')}
-                />
+                {inView && (
+                  <Image 
+                    src={imageConfig.videos.video1.src}
+                    alt="500만화소 고화질 CCTV 영상" 
+                    fill
+                    className={`object-cover transition-opacity duration-300 ${imageLoaded.video1 ? 'opacity-100' : 'opacity-0'}`}
+                    onLoad={() => handleImageLoad('video1')}
+                    onError={() => handleImageError('video1')}
+                    loading="lazy"
+                    unoptimized
+                  />
+                )}
                 {/* 플레이스홀더 - GIF 파일이 로드되지 않은 경우에만 표시 */}
                 {!imageLoaded.video1 && (
                   <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-blue-600 to-purple-700 text-white">
@@ -82,13 +117,18 @@ export default function VideoDemo() {
             {/* 2. 실시간 모니터링 */}
             <div className="bg-white/80 backdrop-blur-sm rounded-xl p-4 shadow-2xl border border-amber-200/50 hover:shadow-3xl transition-all duration-300">
               <div className="aspect-video bg-gray-100 rounded-lg mb-3 overflow-hidden relative">
-                <img 
-                  src="/images/video_2.gif" 
-                  alt="실시간 모니터링 화면" 
-                  className={`w-full h-full object-cover transition-opacity duration-300 ${imageLoaded.video2 ? 'opacity-100' : 'opacity-0'}`}
-                  onLoad={() => handleImageLoad('video2')}
-                  onError={() => handleImageError('video2')}
-                />
+                {inView && (
+                  <Image 
+                    src={imageConfig.videos.video2.src}
+                    alt="실시간 모니터링 화면" 
+                    fill
+                    className={`object-cover transition-opacity duration-300 ${imageLoaded.video2 ? 'opacity-100' : 'opacity-0'}`}
+                    onLoad={() => handleImageLoad('video2')}
+                    onError={() => handleImageError('video2')}
+                    loading="lazy"
+                    unoptimized
+                  />
+                )}
                 {/* 플레이스홀더 - GIF 파일이 로드되지 않은 경우에만 표시 */}
                 {!imageLoaded.video2 && (
                   <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-green-600 to-teal-700 text-white">
@@ -113,13 +153,18 @@ export default function VideoDemo() {
             {/* 3. 객체별 감시 */}
             <div className="bg-white/80 backdrop-blur-sm rounded-xl p-4 shadow-2xl border border-amber-200/50 hover:shadow-3xl transition-all duration-300">
               <div className="aspect-video bg-gray-100 rounded-lg mb-3 overflow-hidden relative">
-                <img 
-                  src="/images/video_3.gif" 
-                  alt="AI 객체 인식 기능" 
-                  className={`w-full h-full object-cover transition-opacity duration-300 ${imageLoaded.video3 ? 'opacity-100' : 'opacity-0'}`}
-                  onLoad={() => handleImageLoad('video3')}
-                  onError={() => handleImageError('video3')}
-                />
+                {inView && (
+                  <Image 
+                    src={imageConfig.videos.video3.src}
+                    alt="AI 객체 인식 기능" 
+                    fill
+                    className={`object-cover transition-opacity duration-300 ${imageLoaded.video3 ? 'opacity-100' : 'opacity-0'}`}
+                    onLoad={() => handleImageLoad('video3')}
+                    onError={() => handleImageError('video3')}
+                    loading="lazy"
+                    unoptimized
+                  />
+                )}
                 {/* 플레이스홀더 - GIF 파일이 로드되지 않은 경우에만 표시 */}
                 {!imageLoaded.video3 && (
                   <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-orange-600 to-red-700 text-white">
@@ -144,13 +189,18 @@ export default function VideoDemo() {
             {/* 4. 침입 및 경계 알림 */}
             <div className="bg-white/80 backdrop-blur-sm rounded-xl p-4 shadow-2xl border border-amber-200/50 hover:shadow-3xl transition-all duration-300">
               <div className="aspect-video bg-gray-100 rounded-lg mb-3 overflow-hidden relative">
-                <img 
-                  src="/images/video_4.gif" 
-                  alt="침입 감지 및 알림 시스템" 
-                  className={`w-full h-full object-cover transition-opacity duration-300 ${imageLoaded.video4 ? 'opacity-100' : 'opacity-0'}`}
-                  onLoad={() => handleImageLoad('video4')}
-                  onError={() => handleImageError('video4')}
-                />
+                {inView && (
+                  <Image 
+                    src={imageConfig.videos.video4.src}
+                    alt="침입 감지 및 알림 시스템" 
+                    fill
+                    className={`object-cover transition-opacity duration-300 ${imageLoaded.video4 ? 'opacity-100' : 'opacity-0'}`}
+                    onLoad={() => handleImageLoad('video4')}
+                    onError={() => handleImageError('video4')}
+                    loading="lazy"
+                    unoptimized
+                  />
+                )}
                 {/* 플레이스홀더 - GIF 파일이 로드되지 않은 경우에만 표시 */}
                 {!imageLoaded.video4 && (
                   <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-red-600 to-pink-700 text-white">
