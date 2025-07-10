@@ -22,7 +22,7 @@ export default function Hero() {
 
   const handleQuickCall = () => {
     // 전화 걸기 기능
-    window.location.href = 'tel:010-1234-5678'
+    window.location.href = 'tel:010-8308-7385'
   }
 
   const handleQuickConsult = () => {
@@ -252,7 +252,7 @@ export default function Hero() {
                     onChange={handleInputChange}
                     required
                     className="w-full px-4 py-4 border-2 border-gray-300 rounded-xl focus:ring-2 focus:ring-warning-orange focus:border-warning-orange text-lg font-medium"
-                    placeholder="010-1234-5678 (어떤 형식으로도 입력 가능)"
+                    placeholder="010-8308-7385 (어떤 형식으로도 입력 가능)"
                   />
                   <p className="text-sm text-gray-500 mt-2">
                     📞 010, 011, 016, 017, 018, 019로 시작하는 번호 모두 가능합니다

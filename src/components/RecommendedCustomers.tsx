@@ -310,7 +310,7 @@ export default function RecommendedCustomers() {
                       onChange={handleInputChange}
                       required
                       className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                      placeholder="010-1234-5678"
+                      placeholder="010-8308-7385"
                     />
                   </div>
                 </div>

@@ -7,7 +7,7 @@ export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
 
   const handleCall = () => {
-    window.location.href = 'tel:010-1234-5678'
+    window.location.href = 'tel:010-8308-7385'
   }
 
   const handleKakaoTalk = () => {
@@ -58,7 +58,7 @@ export default function Header() {
                 className="w-full flex items-center justify-center space-x-3 bg-gradient-to-r from-warning-orange to-red-500 hover:from-red-500 hover:to-warning-orange py-3 rounded-xl text-white font-bold transition-all duration-300"
               >
                 <span className="text-xl">📞</span>
-                <span>010-1234-5678 전화걸기</span>
+                <span>010-8308-7385 전화걸기</span>
               </button>
 
               {/* 카카오톡 상담 */}
