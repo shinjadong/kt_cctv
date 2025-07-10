@@ -58,12 +58,12 @@ export default function VideoDemo() {
               </span>
             </h2>
             
-            {/* KT 텔레캅 로고 */}
+            {/* KT 텔래캅 로고 */}
             <div className="flex justify-center mb-6">
               {inView && (
                 <Image 
                   src={imageConfig.logo.src}
-                  alt="KT 텔레캅" 
+                  alt="KT 텔래캅" 
                   width={64}
                   height={64}
                   className="h-12 lg:h-16 drop-shadow-lg"

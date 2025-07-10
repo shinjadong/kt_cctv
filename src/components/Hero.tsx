@@ -31,8 +31,9 @@ export default function Hero() {
   }
 
   // 폼 입력 핸들러
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
-    const { name, value, type, checked } = e.target
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
+    const { name, value, type } = e.target
+    const checked = 'checked' in e.target ? e.target.checked : undefined
     setEstimateForm(prev => ({
       ...prev,
       [name]: type === 'checkbox' ? checked : value

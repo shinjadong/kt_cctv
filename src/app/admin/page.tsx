@@ -146,7 +146,6 @@ export default function AdminPage() {
                           <div>
                             <h3 className="font-semibold text-lg">{estimate.name}</h3>
                             <p className="text-gray-600">{estimate.phone}</p>
-                            {estimate.email && <p className="text-gray-600">{estimate.email}</p>}
                           </div>
                           <span className={`px-3 py-1 rounded-full text-xs font-medium ${getStatusColor(estimate.status || 'pending')}`}>
                             {estimate.status || 'pending'}

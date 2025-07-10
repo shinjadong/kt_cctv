@@ -58,13 +58,13 @@ export default function KTBrand() {
       {/* 메인 컨텐츠 */}
       <div className="relative z-10 text-center">
         
-        {/* KT 텔레캅 로고 컨테이너 */}
+        {/* KT 텔래캅 로고 컨테이너 */}
         <div className="mb-8">
-          {/* 실제 KT 텔레캅 로고 이미지 - 사이즈 축소 */}
+          {/* 실제 KT 텔래캅 로고 이미지 - 사이즈 축소 */}
           {inView && (
             <Image 
               src={imageConfig.logo.src}
-              alt="KT 텔레캅 로고" 
+              alt="KT 텔래캅 로고" 
               width={96}
               height={96}
               className="h-20 lg:h-24 mx-auto drop-shadow-2xl filter brightness-110"
@@ -78,7 +78,7 @@ export default function KTBrand() {
         {/* 서브 텍스트 */}
         <div className="text-white text-center max-w-2xl mx-auto px-4">
           <p className="text-xl lg:text-2xl font-light mb-4 drop-shadow-lg">
-            <span className="font-semibold text-orange-400">KT 텔레캅</span>과 함께하는
+            <span className="font-semibold text-orange-400">KT 텔래캅</span>과 함께하는
           </p>
           <p className="text-2xl lg:text-3xl font-bold drop-shadow-lg">
             안전한 대한민국

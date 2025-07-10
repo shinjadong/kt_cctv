@@ -14,34 +14,34 @@ const playfair = Playfair_Display({
 // SEO 메타데이터 - 이것이 바로 "테서랙트"의 핵심!
 // 구글 검색엔진이 우리 사이트를 이해하는 "번역기" 역할
 export const metadata: Metadata = {
-  metadataBase: new URL('https://kt-cctv-main.vercel.app'),
+  metadataBase: new URL('https://kt-cctv.ai.kr'),
   title: {
-    default: 'CCTV 설치 전문업체 | 믿을 수 있는 보안카메라 설치',
-    template: '%s | CCTV 전문업체'
+    default: 'CCTV 설치 전문업체 | 케어온',
+    template: '%s | 케어온'
   },
   description: 'CCTV 설치 전문업체입니다. 가정용, 상업용 보안카메라 설치부터 유지보수까지 원스톱 서비스를 제공합니다. 무료 견적 상담 가능.',
   keywords: [
     'CCTV 설치', 'CCTV 업체', '보안카메라', '감시카메라', 
     'IP카메라', 'DVR', 'NVR', '무선카메라', 'CCTV 유지보수'
   ],
-  authors: [{ name: 'CCTV 전문업체' }],
-  creator: 'CCTV 전문업체',
-  publisher: 'CCTV 전문업체',
+  authors: [{ name: '케어온' }],
+  creator: '케어온',
+  publisher: '케어온',
   
   // Open Graph (소셜 미디어 공유시 표시되는 정보)
   openGraph: {
     type: 'website',
     locale: 'ko_KR',
-    url: 'https://your-domain.com',
-    title: 'CCTV 설치 전문업체 | 믿을 수 있는 보안카메라 설치',
+    url: 'https://kt-cctv.ai.kr',
+    title: 'CCTV 설치 전문업체 | 케어온',
     description: 'CCTV 설치 전문업체입니다. 가정용, 상업용 보안카메라 설치부터 유지보수까지 원스톱 서비스를 제공합니다.',
-    siteName: 'CCTV 전문업체',
+    siteName: '케어온',
   },
   
   // Twitter 카드 (트위터 공유시 표시)
   twitter: {
     card: 'summary_large_image',
-    title: 'CCTV 설치 전문업체',
+    title: '케어온',
     description: 'CCTV 설치 전문업체입니다. 무료 견적 상담 가능.',
   },
   
@@ -85,8 +85,8 @@ export default function RootLayout({
               '@type': 'LocalBusiness',
               name: 'CCTV 설치 전문업체',
               description: 'CCTV 설치 및 보안카메라 전문 업체',
-              url: 'https://your-domain.com',
-              telephone: '+82-10-1234-5678',
+              url: 'https://kt-cctv.ai.kr',
+              telephone: '+82-10-7469-4385',
               address: {
                 '@type': 'PostalAddress',
                 addressCountry: 'KR',
