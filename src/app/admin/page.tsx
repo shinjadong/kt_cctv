@@ -153,31 +153,24 @@ export default function AdminPage() {
                           </span>
                         </div>
                         
-                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 text-sm">
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
                           <div>
                             <span className="font-medium text-gray-700">주소:</span>
-                            <p className="text-gray-600">{estimate.address || '미입력'}</p>
+                            <p className="text-gray-600">{estimate.address}</p>
                           </div>
                           <div>
-                            <span className="font-medium text-gray-700">건물유형:</span>
-                            <p className="text-gray-600">{estimate.property_type || '미입력'}</p>
-                          </div>
-                          <div>
-                            <span className="font-medium text-gray-700">카메라 대수:</span>
-                            <p className="text-gray-600">{estimate.camera_count || '미입력'}대</p>
-                          </div>
-                          <div>
-                            <span className="font-medium text-gray-700">예산:</span>
-                            <p className="text-gray-600">{estimate.budget_range || '미입력'}</p>
+                            <span className="font-medium text-gray-700">연락희망시간:</span>
+                            <p className="text-gray-600">{estimate.preferred_contact_time}</p>
                           </div>
                         </div>
                         
-                        {estimate.additional_notes && (
-                          <div className="mt-3">
-                            <span className="font-medium text-gray-700">추가 요청사항:</span>
-                            <p className="text-gray-600 mt-1">{estimate.additional_notes}</p>
-                          </div>
-                        )}
+                        {/* 프로모션 체크 여부 */}
+                        <div className="mt-3">
+                          <span className="font-medium text-gray-700">프로모션 체크:</span>
+                          <span className={`ml-2 px-2 py-1 rounded-full text-xs font-medium ${estimate.promo_check ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-600'}`}>
+                            {estimate.promo_check ? '🎁 프로모션 대상' : '일반 문의'}
+                          </span>
+                        </div>
                         
                         <div className="mt-3 text-xs text-gray-500">
                           신청일: {formatDate(estimate.created_at || '')}

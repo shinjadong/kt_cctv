@@ -5,18 +5,14 @@ const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
 
 export const supabase = createClient(supabaseUrl, supabaseAnonKey)
 
-// 타입 정의
+// 타입 정의 (간소화된 견적 폼)
 export interface IEstimate {
   id?: string
   name: string
   phone: string
-  email?: string
-  address?: string
-  property_type?: string
-  camera_count?: number
-  budget_range?: string
-  preferred_contact_time?: string
-  additional_notes?: string
+  address: string
+  preferred_contact_time: string
+  promo_check?: boolean
   status?: string
   created_at?: string
   updated_at?: string

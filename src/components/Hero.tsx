@@ -11,17 +11,13 @@ export default function Hero() {
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [submitMessage, setSubmitMessage] = useState('')
   
-  // 견적 문의 폼 데이터
+  // 견적 문의 폼 데이터 (간소화)
   const [estimateForm, setEstimateForm] = useState<IEstimateForm>({
     name: '',
     phone: '',
-    email: '',
     address: '',
-    property_type: '',
-    camera_count: undefined,
-    budget_range: '',
     preferred_contact_time: '',
-    additional_notes: ''
+    promo_check: false
   })
 
   const handleQuickCall = () => {
@@ -35,12 +31,29 @@ export default function Hero() {
   }
 
   // 폼 입력 핸들러
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
-    const { name, value } = e.target
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+    const { name, value, type, checked } = e.target
     setEstimateForm(prev => ({
       ...prev,
-      [name]: name === 'camera_count' ? (value ? parseInt(value) : undefined) : value
+      [name]: type === 'checkbox' ? checked : value
     }))
+  }
+
+  // 주소 검색 기능
+  const handleAddressSearch = () => {
+    // 다음 우편번호 API 사용
+    if (typeof window !== 'undefined' && (window as any).daum) {
+      new (window as any).daum.Postcode({
+        oncomplete: function(data: any) {
+          setEstimateForm(prev => ({
+            ...prev,
+            address: `${data.address} ${data.buildingName ? `(${data.buildingName})` : ''}`
+          }))
+        }
+      }).open()
+    } else {
+      alert('주소 검색 서비스를 불러오는 중입니다. 잠시 후 다시 시도해주세요.')
+    }
   }
 
   // 견적 문의 제출
@@ -66,13 +79,9 @@ export default function Hero() {
         setEstimateForm({
           name: '',
           phone: '',
-          email: '',
           address: '',
-          property_type: '',
-          camera_count: undefined,
-          budget_range: '',
           preferred_contact_time: '',
-          additional_notes: ''
+          promo_check: false
         })
         // 3초 후 모달 닫기
         setTimeout(() => {
@@ -184,153 +193,128 @@ export default function Hero() {
                 </div>
               )}
 
-              <form onSubmit={handleEstimateSubmit} className="space-y-4">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
-                      이름 <span className="text-red-500">*</span>
-                    </label>
-                    <input
-                      type="text"
-                      name="name"
-                      value={estimateForm.name}
-                      onChange={handleInputChange}
-                      required
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                      placeholder="홍길동"
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
-                      전화번호 <span className="text-red-500">*</span>
-                    </label>
-                    <input
-                      type="tel"
-                      name="phone"
-                      value={estimateForm.phone}
-                      onChange={handleInputChange}
-                      required
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                      placeholder="010-1234-5678"
-                    />
-                  </div>
-                </div>
-
+              <form onSubmit={handleEstimateSubmit} className="space-y-6">
+                {/* 이름 */}
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">이메일</label>
-                  <input
-                    type="email"
-                    name="email"
-                    value={estimateForm.email}
-                    onChange={handleInputChange}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                    placeholder="example@email.com"
-                  />
-                </div>
-
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">설치 주소</label>
+                  <label className="block text-lg font-semibold text-gray-800 mb-3">
+                    이름 <span className="text-red-500">*</span>
+                  </label>
                   <input
                     type="text"
-                    name="address"
-                    value={estimateForm.address}
+                    name="name"
+                    value={estimateForm.name}
                     onChange={handleInputChange}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                    placeholder="서울시 강남구..."
+                    required
+                    className="w-full px-4 py-4 border-2 border-gray-300 rounded-xl focus:ring-2 focus:ring-warning-orange focus:border-warning-orange text-lg font-medium"
+                    placeholder="홍길동"
                   />
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">건물 유형</label>
-                    <select
-                      name="property_type"
-                      value={estimateForm.property_type}
-                      onChange={handleInputChange}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                    >
-                      <option value="">선택해주세요</option>
-                      <option value="주택">주택</option>
-                      <option value="아파트">아파트</option>
-                      <option value="상가">상가</option>
-                      <option value="사무실">사무실</option>
-                      <option value="공장">공장</option>
-                      <option value="기타">기타</option>
-                    </select>
-                  </div>
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">카메라 대수</label>
-                    <input
-                      type="number"
-                      name="camera_count"
-                      value={estimateForm.camera_count || ''}
-                      onChange={handleInputChange}
-                      min="1"
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                      placeholder="4"
-                    />
-                  </div>
-                </div>
-
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">예산 범위</label>
-                    <select
-                      name="budget_range"
-                      value={estimateForm.budget_range}
-                      onChange={handleInputChange}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                    >
-                      <option value="">선택해주세요</option>
-                      <option value="100만원 미만">100만원 미만</option>
-                      <option value="100-300만원">100-300만원</option>
-                      <option value="300-500만원">300-500만원</option>
-                      <option value="500만원 이상">500만원 이상</option>
-                    </select>
-                  </div>
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">연락 희망시간</label>
-                    <select
-                      name="preferred_contact_time"
-                      value={estimateForm.preferred_contact_time}
-                      onChange={handleInputChange}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                    >
-                      <option value="">선택해주세요</option>
-                      <option value="오전 (09:00-12:00)">오전 (09:00-12:00)</option>
-                      <option value="오후 (12:00-18:00)">오후 (12:00-18:00)</option>
-                      <option value="저녁 (18:00-21:00)">저녁 (18:00-21:00)</option>
-                      <option value="언제든지">언제든지</option>
-                    </select>
-                  </div>
-                </div>
-
+                {/* 무료 견적 받으실 주소 */}
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">추가 요청사항</label>
-                  <textarea
-                    name="additional_notes"
-                    value={estimateForm.additional_notes}
-                    onChange={handleInputChange}
-                    rows={3}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                    placeholder="특별한 요구사항이나 궁금한 점이 있으시면 적어주세요."
-                  />
+                  <label className="block text-lg font-semibold text-gray-800 mb-3">
+                    무료 견적 받으실 주소 <span className="text-red-500">*</span>
+                  </label>
+                  <div className="flex gap-3">
+                    <input
+                      type="text"
+                      name="address"
+                      value={estimateForm.address}
+                      onChange={handleInputChange}
+                      required
+                      className="flex-1 px-4 py-4 border-2 border-gray-300 rounded-xl focus:ring-2 focus:ring-warning-orange focus:border-warning-orange text-lg"
+                      placeholder="주소 검색 버튼을 클릭해주세요"
+                      readOnly
+                    />
+                    <button
+                      type="button"
+                      onClick={handleAddressSearch}
+                      className="px-6 py-4 bg-warning-orange text-white rounded-xl hover:bg-red-500 transition-all duration-300 font-bold whitespace-nowrap shadow-lg hover:shadow-xl"
+                    >
+                      🔍 주소검색
+                    </button>
+                  </div>
+                  <p className="text-sm text-gray-500 mt-2">
+                    📍 정확한 주소를 입력해주시면 더 정확한 견적을 제공해드릴 수 있습니다
+                  </p>
                 </div>
 
-                <div className="flex gap-4 pt-4">
+                {/* 전화번호 */}
+                <div>
+                  <label className="block text-lg font-semibold text-gray-800 mb-3">
+                    전화번호 <span className="text-red-500">*</span>
+                  </label>
+                  <input
+                    type="tel"
+                    name="phone"
+                    value={estimateForm.phone}
+                    onChange={handleInputChange}
+                    required
+                    className="w-full px-4 py-4 border-2 border-gray-300 rounded-xl focus:ring-2 focus:ring-warning-orange focus:border-warning-orange text-lg font-medium"
+                    placeholder="010-1234-5678 (어떤 형식으로도 입력 가능)"
+                  />
+                  <p className="text-sm text-gray-500 mt-2">
+                    📞 010, 011, 016, 017, 018, 019로 시작하는 번호 모두 가능합니다
+                  </p>
+                </div>
+
+                {/* 연락 희망시간 */}
+                <div>
+                  <label className="block text-lg font-semibold text-gray-800 mb-3">
+                    연락 희망시간 <span className="text-red-500">*</span>
+                  </label>
+                  <select
+                    name="preferred_contact_time"
+                    value={estimateForm.preferred_contact_time}
+                    onChange={handleInputChange}
+                    required
+                    className="w-full px-4 py-4 border-2 border-gray-300 rounded-xl focus:ring-2 focus:ring-warning-orange focus:border-warning-orange text-lg font-medium bg-white"
+                  >
+                    <option value="">언제 연락 받으시겠어요?</option>
+                    <option value="오전">🌅 오전 (09:00-12:00)</option>
+                    <option value="오후">☀️ 오후 (12:00-18:00)</option>
+                    <option value="저녁">🌆 저녁 (18:00-21:00)</option>
+                    <option value="야간">🌙 야간 (21:00-23:00)</option>
+                  </select>
+                </div>
+
+                {/* 무료 설치 프로모션 체크박스 */}
+                <div className="bg-gradient-to-r from-amber-50 to-orange-50 p-6 rounded-xl border-2 border-amber-200">
+                  <label className="flex items-start space-x-4 cursor-pointer">
+                    <input
+                      type="checkbox"
+                      name="promo_check"
+                      checked={estimateForm.promo_check || false}
+                      onChange={handleInputChange}
+                      className="mt-2 w-6 h-6 text-warning-orange border-2 border-gray-300 rounded-md focus:ring-warning-orange"
+                    />
+                    <div className="flex-1">
+                      <span className="text-lg font-bold text-gray-800 block">
+                        🎁 <span className="text-warning-orange">무료 설치 프로모션</span>을 보고 오신 경우 체크해주세요
+                      </span>
+                      <p className="text-sm text-gray-600 mt-2 leading-relaxed">
+                        ✅ 체크하시면 <span className="font-semibold text-green-600">특별 할인 혜택</span>을 받으실 수 있습니다<br />
+                        💰 최대 30% 할인 + 무료 A/S 연장 서비스
+                      </p>
+                    </div>
+                  </label>
+                </div>
+
+                {/* 제출 버튼 */}
+                <div className="grid grid-cols-2 gap-4 pt-6">
                   <button
                     type="button"
                     onClick={() => setShowEstimateModal(false)}
-                    className="flex-1 px-6 py-3 text-gray-700 bg-gray-200 rounded-lg hover:bg-gray-300 transition-colors"
+                    className="px-6 py-4 text-gray-700 bg-gray-200 rounded-xl hover:bg-gray-300 transition-all duration-300 font-semibold text-lg"
                   >
                     취소
                   </button>
                   <button
                     type="submit"
                     disabled={isSubmitting}
-                    className="flex-1 px-6 py-3 text-white bg-blue-600 rounded-lg hover:bg-blue-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="px-6 py-4 text-white bg-gradient-to-r from-warning-orange to-red-500 rounded-xl hover:from-red-500 hover:to-warning-orange transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed font-bold text-lg shadow-lg hover:shadow-xl"
                   >
-                    {isSubmitting ? '제출 중...' : '견적 요청'}
+                    {isSubmitting ? '📤 제출 중...' : '🚀 무료견적 받기'}
                   </button>
                 </div>
               </form>

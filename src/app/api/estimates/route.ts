@@ -7,36 +7,33 @@ export async function POST(request: NextRequest) {
     const body = await request.json()
     
     // 필수 필드 검증
-    if (!body.name || !body.phone) {
+    if (!body.name || !body.phone || !body.address || !body.preferred_contact_time) {
       return NextResponse.json(
-        { error: '이름과 전화번호는 필수입니다.' },
+        { error: '모든 필수 항목을 입력해주세요.' },
         { status: 400 }
       )
     }
 
-    // 전화번호 형식 검증 (간단한 한국 전화번호 패턴)
-    const phoneRegex = /^01[016789]-?\d{3,4}-?\d{4}$/
-    if (!phoneRegex.test(body.phone.replace(/[^\d]/g, ''))) {
+    // 전화번호 형식 검증 (유연한 한국 전화번호 패턴)
+    const cleanPhone = body.phone.replace(/[^\d]/g, '') // 숫자만 추출
+    const phoneRegex = /^01[016789]\d{7,8}$/ // 01X로 시작하고 총 10-11자리
+    if (!phoneRegex.test(cleanPhone)) {
       return NextResponse.json(
-        { error: '올바른 전화번호를 입력해주세요.' },
+        { error: '올바른 전화번호를 입력해주세요. (010, 011, 016, 017, 018, 019로 시작)' },
         { status: 400 }
       )
     }
 
-    // 데이터베이스에 저장
+    // 데이터베이스에 저장 (간소화된 폼)
     const { data, error } = await supabase
       .from('estimates')
       .insert([
         {
           name: body.name,
-          phone: body.phone,
-          email: body.email || null,
-          address: body.address || null,
-          property_type: body.property_type || null,
-          camera_count: body.camera_count || null,
-          budget_range: body.budget_range || null,
-          preferred_contact_time: body.preferred_contact_time || null,
-          additional_notes: body.additional_notes || null,
+          phone: cleanPhone, // 정제된 전화번호 저장
+          address: body.address,
+          preferred_contact_time: body.preferred_contact_time,
+          promo_check: body.promo_check || false,
           status: 'pending'
         }
       ])

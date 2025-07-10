@@ -73,6 +73,9 @@ export default function RootLayout({
   return (
     <html lang="ko" className="scroll-smooth">
       <head>
+        {/* 다음 우편번호 API */}
+        <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+        
         {/* 구조화된 데이터 (JSON-LD) - 구글이 우리 사이트를 더 잘 이해하게 하는 "설명서" */}
         <script
           type="application/ld+json"

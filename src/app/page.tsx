@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import dynamic from 'next/dynamic'
 import Header from '@/components/Header'
 import Hero from '@/components/Hero'
+import Footer from '@/components/Footer'
 
 const KTBrand = dynamic(() => import('@/components/KTBrand'), {
   loading: () => <div className="min-h-screen bg-gradient-to-br from-amber-50 to-stone-100" />
@@ -49,6 +50,9 @@ export default function HomePage() {
       <KTBrand />
       <VideoDemo />
       <RecommendedCustomers />
+      
+      {/* Footer */}
+      <Footer />
     </main>
   )
 } 
