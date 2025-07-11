@@ -163,13 +163,6 @@ export default function AdminPage() {
                           </div>
                         </div>
                         
-                        {/* 프로모션 체크 여부 */}
-                        <div className="mt-3">
-                          <span className="font-medium text-gray-700">프로모션 체크:</span>
-                          <span className={`ml-2 px-2 py-1 rounded-full text-xs font-medium ${estimate.promo_check ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-600'}`}>
-                            {estimate.promo_check ? '🎁 프로모션 대상' : '일반 문의'}
-                          </span>
-                        </div>
                         
                         <div className="mt-3 text-xs text-gray-500">
                           신청일: {formatDate(estimate.created_at || '')}

@@ -16,8 +16,7 @@ export default function Hero() {
     name: '',
     phone: '',
     address: '',
-    preferred_contact_time: '',
-    promo_check: false
+    preferred_contact_time: ''
   })
 
   const handleQuickCall = () => {
@@ -81,8 +80,7 @@ export default function Hero() {
           name: '',
           phone: '',
           address: '',
-          preferred_contact_time: '',
-          promo_check: false
+          preferred_contact_time: ''
         })
         // 3초 후 모달 닫기
         setTimeout(() => {

@@ -33,7 +33,6 @@ export async function POST(request: NextRequest) {
           phone: cleanPhone, // 정제된 전화번호 저장
           address: body.address,
           preferred_contact_time: body.preferred_contact_time,
-          promo_check: body.promo_check || false,
           status: 'pending'
         }
       ])

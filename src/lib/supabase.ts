@@ -1,7 +1,7 @@
 import { createClient } from '@supabase/supabase-js'
 
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!
-const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+const supabaseUrl = "https://clbutkcmgxfetdcceoaa.supabase.co"
+const supabaseAnonKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNsYnV0a2NtZ3hmZXRkY2Nlb2FhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTIxMzM5ODksImV4cCI6MjA2NzcwOTk4OX0.ueDigeMvdez2-PQD5X_nVwE4BiX8QZI1eRsiDtaZUWM"
 
 export const supabase = createClient(supabaseUrl, supabaseAnonKey)
 
@@ -12,7 +12,6 @@ export interface IEstimate {
   phone: string
   address: string
   preferred_contact_time: string
-  promo_check?: boolean
   status?: string
   created_at?: string
   updated_at?: string
