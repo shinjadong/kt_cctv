@@ -277,27 +277,6 @@ export default function Hero() {
                   </select>
                 </div>
 
-                {/* 무료 설치 프로모션 체크박스 */}
-                <div className="bg-gradient-to-r from-amber-50 to-orange-50 p-6 rounded-xl border-2 border-amber-200">
-                  <label className="flex items-start space-x-4 cursor-pointer">
-                    <input
-                      type="checkbox"
-                      name="promo_check"
-                      checked={estimateForm.promo_check || false}
-                      onChange={handleInputChange}
-                      className="mt-2 w-6 h-6 text-warning-orange border-2 border-gray-300 rounded-md focus:ring-warning-orange"
-                    />
-                    <div className="flex-1">
-                      <span className="text-lg font-bold text-gray-800 block">
-                        🎁 <span className="text-warning-orange">무료 설치 프로모션</span>을 보고 오신 경우 체크해주세요
-                      </span>
-                      <p className="text-sm text-gray-600 mt-2 leading-relaxed">
-                        ✅ 체크하시면 <span className="font-semibold text-green-600">특별 할인 혜택</span>을 받으실 수 있습니다<br />
-                        💰 최대 30% 할인 + 무료 A/S 연장 서비스
-                      </p>
-                    </div>
-                  </label>
-                </div>
 
                 {/* 제출 버튼 */}
                 <div className="grid grid-cols-2 gap-4 pt-6">
