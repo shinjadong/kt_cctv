@@ -83,10 +83,10 @@ export default function RootLayout({
             __html: JSON.stringify({
               '@context': 'https://schema.org',
               '@type': 'LocalBusiness',
-              name: 'CCTV 설치 전문업체',
+              name: '케어온',
               description: 'CCTV 설치 및 보안카메라 전문 업체',
               url: 'https://kt-cctv.ai.kr',
-              telephone: '+82-10-7469-4385',
+              telephone: '+82-10-8308-4385',
               address: {
                 '@type': 'PostalAddress',
                 addressCountry: 'KR',

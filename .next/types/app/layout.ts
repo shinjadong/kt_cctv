@@ -1,4 +1,4 @@
-// File: /home/tlswk/projects/cctv/KT-CCTV-main/src/app/layout.tsx
+// File: /home/tlswk/kt_cctv/src/app/layout.tsx
 import * as entry from '../../../src/app/layout.js'
 import type { ResolvingMetadata, ResolvingViewport } from 'next/dist/lib/metadata/types/metadata-interface.js'
 
